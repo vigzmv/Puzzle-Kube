@@ -1,5 +1,9 @@
-var boxes = [ 2, 4, 6, 8, 11, 12, 13]; //only for tests
-score = 0;
+var boxes = [ 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 7, 7,
+ 8, 8, 8, 8, 8, 8, 8, 9, 9, 9, 9, 9, 9, 9, 9, 9, ]; //only for tests
+var score = 0;
+var seconds;
+var temp;
+var randomBox //it has to global for reasons
 
 var factorial = function (number){
 	if (number ===0 || number === 1)
@@ -31,12 +35,23 @@ function createSmallBox(total_extra_space, no_of_box){
 	bigbox.appendChild(SmallBox);
 }
 
+function scoreUpdater () {
+	 ScoreDiv = document.getElementById("score");
+	 ScoreDiv.innerHTML = "Score: " + score;
+}
+
 function randomBoxSelector() {
 	 var allChilds = bigbox.childNodes;
-	 var randomBox = allChilds[Math.floor((Math.random() * (boxes[index]*boxes[index])))];
+	 randomBox = allChilds[Math.floor((Math.random() * (boxes[index]*boxes[index])))];
 	 randomBox.style.backgroundColor = "pink";
 	 randomBox.onclick = function (){
+	 	 if(index == 1){
+	 	 	document.getElementById('countdown').innerHTML = 10 + 1; //Set the time here.
+	 	 	//
+	 	 	countdown();
+	 	 }
 	 	 score++;
+	 	 scoreUpdater();
 	 	 start(); 
 	 }
 }
@@ -48,10 +63,29 @@ function create(){
 	}
 	randomBoxSelector();
 }
+ 
+function countdown() {
+	seconds = document.getElementById('countdown').innerHTML;
+	seconds = parseInt(seconds, 10);
+
+	if (seconds == 1) {
+		temp = document.getElementById('countdown');
+		temp.innerHTML = "Game Over";
+		randomBox.onclick = null;
+		window.alert("Your Score = " + score);
+		return;
+	}
+
+	seconds--;
+	temp = document.getElementById('countdown');
+	temp.innerHTML = seconds;
+	timeoutMyOswego = setTimeout(countdown, 1000);
+} 
 
 function start(){
 	if(index >= boxes.length)
 		window.alert("You have reached the end of the road Pal!. Your Score = " + score);
+		//This won't happen. let the player have no limits
 	else{
 		var bigBox = document.getElementById('bigbox');
 		while(bigBox.firstChild){
@@ -64,5 +98,5 @@ function start(){
 
 window.onload = function () {
 	start();
-	alert("Click as many times as you want!");
+	alert("Click the Sneaky Litle Rebel");
 };

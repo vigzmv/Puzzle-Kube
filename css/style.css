@@ -13,7 +13,7 @@
 	background-color: white;
 	height: 38vw;
 	width: 38vw;
-	margin: 8vw auto 10vw;
+	margin: auto;
 	padding-left: 6px;
 	padding-top: 3px;
 	padding-bottom: 3px;
@@ -26,6 +26,25 @@
 	margin-top: 3px;
 	margin-bottom: 3px;
 	margin-right: 6px;
+}
+
+#countdown{
+	text-align: center;
+	margin: auto;
+	color: blue;
+	padding-top: 1vw;
+	padding-bottom: 1vw;
+	font-size: 4vw;
+	font-family: 'Passion One', cursive, sans-serif;
+}
+
+#score{
+	text-align: center;
+	color: blue;
+	padding-top: 1vw;
+	padding-bottom: 3vw;
+	font-size: 4vw;
+	font-family: 'Passion One', cursive, sans-serif;
 }
 
 #thebody{
