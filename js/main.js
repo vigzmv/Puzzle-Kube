@@ -1,4 +1,5 @@
-var boxes = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
+var boxes = [ 2, 4, 6, 8, 11, 12, 13]; //only for tests
+score = 0;
 
 var factorial = function (number){
 	if (number ===0 || number === 1)
@@ -30,16 +31,27 @@ function createSmallBox(total_extra_space, no_of_box){
 	bigbox.appendChild(SmallBox);
 }
 
+function randomBoxSelector() {
+	 var allChilds = bigbox.childNodes;
+	 var randomBox = allChilds[Math.floor((Math.random() * (boxes[index]*boxes[index])))];
+	 randomBox.style.backgroundColor = "pink";
+	 randomBox.onclick = function (){
+	 	 score++;
+	 	 start(); 
+	 }
+}
+
 function create(){
 	for(var i=0; i<boxes[index]*boxes[index]; i++){
 		var extra_spaces = 6 * boxes[index];
 		createSmallBox(extra_spaces, boxes[index]);
 	}
+	randomBoxSelector();
 }
 
 function start(){
 	if(index >= boxes.length)
-		window.alert("You have reached the end of the road Pal!");
+		window.alert("You have reached the end of the road Pal!. Your Score = " + score);
 	else{
 		var bigBox = document.getElementById('bigbox');
 		while(bigBox.firstChild){
