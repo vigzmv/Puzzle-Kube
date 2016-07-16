@@ -1,9 +1,39 @@
-var boxes = [ 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 7, 7,
- 8, 8, 8, 8, 8, 8, 8, 9, 9, 9, 9, 9, 9, 9, 9, 9, ]; //only for tests
+var boxes = [ 2, 2,
+			  3, 3,
+			  4, 4,
+			  5, 5, 5,
+			  6, 6, 6,
+			  7, 7, 7, 7,
+			  8, 8, 8, 8, 8, 8, 8, 8,
+			  9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9,
+		      10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,
+		      11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 
+		      11, 11, 11, 11, 11, 11, 11, 11, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12,
+		      12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12,
+		      12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12,
+		      12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12,
+		      ];
+			  //No of levels
+
+var colrs = ["#b71c1c", "#006064", "#C51162", "#F50057", "#6A1B9A",
+  "#880E4F", "#673AB7", "#303F9F", "#0D47A1", "#607D8B", "#2E7D32",
+  "#00695C", "#01579B", "#FF6F00", "#424242", "#FF5722", "#BF360C",
+  "#795548", "#E65100", "#6200EA", "#9C27B0", "#9E9D24", "#263238",
+  "#d50000", "#0D47A1", "#4A148C", "#3E2723", "#00695C", "#827717",
+
+  			 "#b71c1c", "#006064", "#C51162", "#F50057", "#6A1B9A",
+  "#880E4F", "#673AB7", "#303F9F", "#0D47A1", "#607D8B", "#2E7D32",
+  "#00695C", "#01579B", "#FF6F00", "#424242", "#FF5722", "#BF360C",
+  "#795548", "#E65100", "#6200EA", "#9C27B0", "#9E9D24", "#263238",
+  "#d50000", "#0D47A1", "#4A148C", "#3E2723", "#00695C", "#827717"]; //doublets to increase randomocity
+
+
 var score = 0;
 var seconds;
 var temp;
-var randomBox //it has to global for reasons
+var randomBox //it has to be global for reasons
+var col;
+var opacy = 0.70;
 
 var factorial = function (number){
 	if (number ===0 || number === 1)
@@ -30,7 +60,8 @@ function createSmallBox(total_extra_space, no_of_box){
 
 	var SmallBox = document.createElement("div");
 
-	SmallBox.id = "SmallBox"
+	SmallBox.id = "SmallBox";
+	SmallBox.style.backgroundColor = col;
 	SmallBox.style.height = h;
 	SmallBox.style.width = h;	
 	bigbox.appendChild(SmallBox);
@@ -44,11 +75,17 @@ function scoreUpdater () {
 function randomBoxSelector() {
 	 var allChilds = bigbox.childNodes;
 	 randomBox = allChilds[Math.floor((Math.random() * (boxes[index]*boxes[index])))];
-	 randomBox.style.backgroundColor = "pink";
-	 randomBox.onclick = function (){
+	 randomBox.style.opacity = opacy;
+	 
+	 if(index % 2 == 0)
+		{	 
+			opacy = opacy + 0.005;	
+		}
+
+		 randomBox.onclick = function (){
 	 	 if(index == 1){
-	 	 	document.getElementById('countdown').innerHTML = 10 + 1; //Set the time here.
-	 	 	//
+	 	 	document.getElementById('countdown').innerHTML = 60 + 1;
+	 	 	 //Set the time here.
 	 	 	countdown();
 	 	 }
 	 	 score++;
@@ -58,6 +95,7 @@ function randomBoxSelector() {
 }
 
 function create(){
+	col = colrs[Math.floor((Math.random() * (colrs.length)))];
 	for(var i=0; i<boxes[index]*boxes[index]; i++){
 		var extra_spaces = 6 * boxes[index];
 		createSmallBox(extra_spaces, boxes[index]);
@@ -72,6 +110,7 @@ function countdown() {
 	if (seconds == 1) {
 		temp = document.getElementById('countdown');
 		temp.innerHTML = "Game Over";
+		randomBox.style.backgroundColor = "black";
 		randomBox.onclick = null;
 		window.alert("Your Score = " + score);
 		return;
@@ -79,7 +118,7 @@ function countdown() {
 
 	seconds--;
 	var tick = document.getElementById('tick');
-	tick.volume = (10 - seconds) / 10;
+	tick.volume = (60 - seconds) / 60;
 	tick.play();
 	temp = document.getElementById('countdown');
 	temp.innerHTML = seconds;
@@ -88,7 +127,7 @@ function countdown() {
 
 function start(){
 	if(index >= boxes.length)
-		window.alert("You have reached the end of the road Pal!. Your Score = " + score);
+		window.alert("Either you found a hack or you are GOD. Your Score = " + score);
 		//This won't happen. let the player have no limits
 	else{
 		var bigBox = document.getElementById('bigbox');
@@ -102,7 +141,6 @@ function start(){
 
 window.onload = function () {
 	start();
-	alert("Click the Sneaky Litle Rebel");
 };
 
 var populate_help = function () {
