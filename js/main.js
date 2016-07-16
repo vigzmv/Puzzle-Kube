@@ -110,7 +110,7 @@ var populate_help = function () {
 	var help_obj_div = document.createElement('div');
 	help_obj_div.id = "help-text";
 
-	help_obj_text = "<p>Society is always hard on the odd ones and so is this game. Seperate as many odd boxes from the matrix as you can whilw the Timer is still ticking.</p>"+
+	help_obj_text = "<p>Society is always hard on the odd ones and so is this game. Seperate as many odd boxes from the matrix as you can while the Timer is still ticking.</p>"+
 					"<p>Try to differentiate as fast as you can to check your reflexes and sense of judgement.</p>";
 
 	help_obj_div.innerHTML += help_obj_text;
