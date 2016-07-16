@@ -5,12 +5,13 @@
 	right:0;
 	bottom:0;
 	left:0;
-	background-color: yellow;
+	background-color: rgba(149,117,205 ,1);
 }
 
 #bigbox
 {
-	background-color: white;
+	background-color: rgba(238,238,238 ,1);
+	border-radius: 7px;
 	height: 38vw;
 	width: 38vw;
 	margin: auto;
@@ -48,5 +49,27 @@
 }
 
 #thebody{
-	background-color: yellow;
+	background-color: white;
+	cursor: url(../img/cursor.cur), auto;
+}
+
+#help{
+	position: fixed !important;
+	text-align: right;
+	top: 20px;
+	right: 20px;
+	height: 35px;
+	width: 80px;
+	padding: 10px;
+	border: 2px solid black;
+	border-radius: 5px;
+	background-color: rgba(139,195,74,1);
+	font-size: 30px;	
+	font-family: 'Passion One', cursive, sans-serif;
+}
+
+#help-text{
+	font-family: 'Montserrat', sans-serif;
+	font-size: 15px;
+	text-align: left;
 }

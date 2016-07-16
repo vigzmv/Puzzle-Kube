@@ -12,6 +12,7 @@ var factorial = function (number){
 };
 
 var index = 0;
+var help = false;
 
 var bigbox = document.getElementById("bigbox");
 var boxH = getComputedStyle(bigbox).getPropertyValue("height");
@@ -77,6 +78,9 @@ function countdown() {
 	}
 
 	seconds--;
+	var tick = document.getElementById('tick');
+	tick.volume = (10 - seconds) / 10;
+	tick.play();
 	temp = document.getElementById('countdown');
 	temp.innerHTML = seconds;
 	timeoutMyOswego = setTimeout(countdown, 1000);
@@ -100,3 +104,38 @@ window.onload = function () {
 	start();
 	alert("Click the Sneaky Litle Rebel");
 };
+
+var populate_help = function () {
+	var help_obj = document.getElementById("help");
+	var help_obj_div = document.createElement('div');
+	help_obj_div.id = "help-text";
+
+	help_obj_text = "<p>Society is always hard on the odd ones and so is this game. Seperate as many odd boxes from the matrix as you can whilw the Timer is still ticking.</p>"+
+					"<p>Try to differentiate as fast as you can to check your reflexes and sense of judgement.</p>";
+
+	help_obj_div.innerHTML += help_obj_text;
+
+	help_obj.appendChild(help_obj_div);
+};
+
+var help_height = $("#help").height();
+var help_width = $("#help").width();
+
+$("#help").click(function () {
+	if (!help){
+		$("#help").animate({
+			height: "200px",
+			width: "300px"
+		}, 500);
+		populate_help();
+		help = true;
+	}
+	else{
+		$("#help-text").remove();
+		$('#help').animate({
+			height: ""+help_height+"px",
+			width: ""+help_width+"px"
+		}, 500);
+		help = false;
+	}
+});
