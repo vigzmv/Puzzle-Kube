@@ -10,8 +10,20 @@
 
 #bigbox
 {
-	/*background-color: green;*/
-	height: 30vw;
-	width: 30vw;
+	background-color: green;
+	height: 500px;
+	width: 500px;
 	margin: 8vw auto 10vw;
+	padding-left: 6px;
+	padding-top: 3px;
+	padding-bottom: 3px;
+}
+
+#SmallBox{
+	background-color: red;
+	float: left;
+	border-radius: 5px;
+	margin-top: 3px;
+	margin-bottom: 3px;
+	margin-right: 6px;
 }
