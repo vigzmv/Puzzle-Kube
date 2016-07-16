@@ -5,7 +5,7 @@
 	right:0;
 	bottom:0;
 	left:0;
-	background-color: rgba(149,117,205 ,1);
+	background-color: #FF4081;
 }
 
 #bigbox
@@ -21,7 +21,6 @@
 }
 
 #SmallBox{
-	background-color: red;
 	float: left;
 	border-radius: 3px;
 	margin-top: 3px;
@@ -32,7 +31,7 @@
 #countdown{
 	text-align: center;
 	margin: auto;
-	color: blue;
+	color: #263238e;
 	padding-top: 1vw;
 	padding-bottom: 1vw;
 	font-size: 4vw;
@@ -41,7 +40,7 @@
 
 #score{
 	text-align: center;
-	color: blue;
+	color: #263238;
 	padding-top: 1vw;
 	padding-bottom: 3vw;
 	font-size: 4vw;
