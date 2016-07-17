@@ -15,8 +15,8 @@
 	{
 		background-color: rgba(238,238,238 ,1);
 		border-radius: 7px;
-		height: 75vw;
-		width: 75vw;
+		height: 92vw;
+		width: 92vw;
 		margin: auto;
 		padding-left: 6px;
 		padding-top: 3px;
@@ -26,15 +26,15 @@
 	#help{
 		position: fixed !important;
 		text-align: right;
-		top: 10px;
-		right: 10px;
-		height: 5vw;
-		width: 11vw;
+		top: 6px;
+		right: 6px;
+		height: 8vw;
+		width: 17vw;
 		padding: 10px;
 		border: 2px solid black;
 		border-radius: 5px;
 		background-color: rgba(139,195,74,1);
-		font-size: 4vw;	
+		font-size: 6vw;	
 		font-family: 'Passion One', cursive, sans-serif;
 	}
 
@@ -48,16 +48,16 @@
 		text-align: center;
 		margin: auto;
 		color: #263238;
-		padding-top: 40px;
-		padding-bottom: 40px;
-		font-size: 9vw;
+		padding-top: 10vh;
+		padding-bottom: 6vh;
+		font-size: 10vw;
 		font-family: 'Passion One', cursive, sans-serif;
 	}
 
 	#score{
 		text-align: center;
 		color: #263238;
-		padding-top: 40px;
+		padding-top: 6vh;
 		font-size: 9vw;
 		font-family: 'Passion One', cursive, sans-serif;
 	}
@@ -104,7 +104,7 @@
 			color: #263238;
 			padding-top: 4px;
 			padding-bottom: 4px;
-			font-size: 5vw;
+			font-size: 6vw;
 			font-family: 'Passion One', cursive, sans-serif;
 		}
 
