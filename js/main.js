@@ -2,18 +2,18 @@ var boxes = [ 2, 2,
 			  3, 3,
 			  4, 4,
 			  5, 5, 5,
-			  6, 6, 6,
-			  7, 7, 7, 7,
-			  8, 8, 8, 8, 8, 8, 8, 8,
-			  9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9,
+			  6, 6, 6, 6, 6,
+			  7, 7, 7, 7, 7, 7, 7,
+			  8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
+			  9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9,
 		      10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,
-		      11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 
+		      10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 11, 11, 11, 11, 11, 11, 11, 11, 11, 
 		      11, 11, 11, 11, 11, 11, 11, 11, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12,
 		      12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12,
 		      12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12,
 		      12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12,
 		      ];
-			  //No of levels
+
 
 var colrs = ["#b71c1c", "#006064", "#C51162", "#F50057", "#6A1B9A",
   "#880E4F", "#673AB7", "#303F9F", "#0D47A1", "#607D8B", "#2E7D32",
@@ -25,21 +25,22 @@ var colrs = ["#b71c1c", "#006064", "#C51162", "#F50057", "#6A1B9A",
   "#880E4F", "#673AB7", "#303F9F", "#0D47A1", "#607D8B", "#2E7D32",
   "#00695C", "#01579B", "#FF6F00", "#424242", "#FF5722", "#BF360C",
   "#795548", "#E65100", "#6200EA", "#9C27B0", "#9E9D24", "#263238",
-  "#d50000", "#0D47A1", "#4A148C", "#3E2723", "#00695C", "#827717"]; //doublets to increase randomocity
+  "#d50000", "#0D47A1", "#4A148C", "#3E2723", "#00695C", "#827717"]; 
 
 
 var score = 0;
 var seconds;
 var temp;
-var randomBox //it has to be global for reasons
+var randomBox;
 var col;
-var opacy = 0.70;
+var opacy = 0.77;
 
 var factorial = function (number){
 	if (number ===0 || number === 1)
 		return 1;
 	return factorial(number-1)*number;
 };
+
 
 var index = 0;
 var help = false;
@@ -67,6 +68,7 @@ function createSmallBox(total_extra_space, no_of_box){
 	bigbox.appendChild(SmallBox);
 }
 
+
 function scoreUpdater () {
 	 ScoreDiv = document.getElementById("score");
 	 ScoreDiv.innerHTML = "Score: " + score;
@@ -79,7 +81,7 @@ function randomBoxSelector() {
 	 
 	 if(index % 2 == 0)
 		{	 
-			opacy = opacy + 0.005;	
+			opacy = opacy + 0.004;	
 		}
 
 		 randomBox.onclick = function (){
@@ -102,6 +104,24 @@ function create(){
 	}
 	randomBoxSelector();
 }
+
+
+function scoreplay () {
+	 bigbox.style.backgroundColor = "black";
+	 bigbox.style.fontSize = bigBoxSize * 0.13 + "px";
+	 bigbox.style.color = "white";
+	 bigbox.style.textAlign = "center";
+	 bigbox.style.fontFamily = "'Passion One', cursive, sans-serif";
+
+	 bigbox.innerHTML = "</br></br>Your Score: " + score;
+
+	 bigbox.innerHTML = bigbox.innerHTML + "</br></br> Tap to Replay";
+
+	 bigbox.onclick = function () {
+	 	 location.reload();
+	 }
+	 
+}
  
 function countdown() {
 	seconds = document.getElementById('countdown').innerHTML;
@@ -112,9 +132,9 @@ function countdown() {
 		temp.innerHTML = "Game Over";
 		randomBox.style.backgroundColor = "black";
 		randomBox.onclick = null;
-		window.alert("Your Score = " + score);
-		return;
-	}
+		scoreplay();
+		// window.alert("Your Score = " + score);
+		}
 
 	seconds--;
 	var tick = document.getElementById('tick');
@@ -143,18 +163,26 @@ window.onload = function () {
 	start();
 };
 
+
+window.onresize = function () {
+	location.reload();
+};
+
+
 var populate_help = function () {
 	var help_obj = document.getElementById("help");
 	var help_obj_div = document.createElement('div');
 	help_obj_div.id = "help-text";
 
 	help_obj_text = "<p>Society is always hard on the odd ones and so is this game. Seperate as many odd boxes from the matrix as you can while the Timer is still ticking.</p>"+
-					"<p>Try to differentiate as fast as you can to check your reflexes and sense of judgement.</p>";
+					"<p>Try to differentiate as fast as you can to check your reflexes and sense of judgement.</p>" +
+					"<p>By: vigzmv </p>";
 
 	help_obj_div.innerHTML += help_obj_text;
 
 	help_obj.appendChild(help_obj_div);
 };
+
 
 var help_height = $("#help").height();
 var help_width = $("#help").width();
@@ -162,7 +190,7 @@ var help_width = $("#help").width();
 $("#help").click(function () {
 	if (!help){
 		$("#help").animate({
-			height: "200px",
+			height: "240px",
 			width: "300px"
 		}, 500);
 		populate_help();
