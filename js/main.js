@@ -165,7 +165,7 @@ window.onload = function () {
 
 
 window.onresize = function () {
-	location.reload();
+document.location.reload(true);
 };
 
 
