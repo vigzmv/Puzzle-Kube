@@ -5,7 +5,7 @@
 	right:0;
 	bottom:0;
 	left:0;
-	background-color: #EC407A;
+	background-color: #FFD54F;
 }
 
 
@@ -18,9 +18,9 @@
 		height: 92vw;
 		width: 92vw;
 		margin: auto;
-		padding-left: 6px;
-		padding-top: 3px;
-		padding-bottom: 3px;
+		padding-left: 5px;
+		padding-top: 2px;
+		padding-bottom: 2px;
 	}
 	
 	#help{
@@ -28,15 +28,63 @@
 		text-align: right;
 		top: 6px;
 		right: 6px;
-		height: 8vw;
-		width: 17vw;
+		height: 8vh;
+		width: 17vh;
 		padding: 10px;
 		border: 2px solid black;
 		border-radius: 5px;
 		background-color: rgba(139,195,74,1);
-		font-size: 6vw;	
+		font-size: 6vh;	
+		font-family: 'Passion One', cursive, sans-serif;
+		z-index: 10;
+	}
+
+	#leaderboard{
+		position: fixed !important;
+		text-align: right;
+		bottom: 5px;
+		right: 5px;
+		height: 3vh;
+		width: 20vh;
+		padding: 8px;
+		border: 2px solid black;
+		border-radius: 5px;
+		background-color: rgba(139,195,74,1);
+		font-size: 3vh;	
 		font-family: 'Passion One', cursive, sans-serif;
 	}
+
+		#points-table{
+			text-align: center;
+			font-size: 2vh;
+			width: 100%;
+			border-collapse: collapse;
+		}
+		
+		#table-body > tr{
+			margin-bottom: 1vh; 
+			border-radius: 2px;
+		}
+
+		#table-header{
+			font-family: 'Aladin', cursive;
+			font-size: 2.7vh;
+		}
+
+		#table-body{
+			font-family: 'Secular One', sans-serif;
+			font-size: 2vh;
+		}
+
+		#player1{
+			font-size: 2.5vh;
+		}
+		#player2{
+			font-size: 2.3vh;
+		}
+		#player3{
+			font-size: 2.2vh;
+		}
 
 	#help-text{
 		font-family: 'Montserrat', sans-serif;
@@ -61,6 +109,81 @@
 		font-size: 9vw;
 		font-family: 'Passion One', cursive, sans-serif;
 	}
+
+	#submit-score{
+		background-color: rgba(76,175,80,1);
+		border-radius: 7px;
+		width: 70%;
+		margin: auto;
+		padding: 6px;
+		font-size: 4.5vh;
+	}
+
+	#submit-score:hover{
+		background-color: rgba(76,175,80,0.9);
+	}
+
+	#replay{
+		margin: auto;
+		font-size: 4.5vh;
+	}
+
+	
+		.avatar{
+			margin: 1.5vh auto 0 auto;
+			background-image: url('https://api.adoxrable.io/avatars/129/Kube.png');
+			border-radius: 100%;
+		}
+
+		.your-name{
+			margin: 1vh 3vh 0 1vh;
+			font-size: 3vh;
+			height: 5vh;
+		}
+
+		.name-input{
+			width: 100%;
+			height: 100%;
+			border-radius: 5px;
+			background-color: rgba(33,33,33 ,1);
+			border: 0px;
+			padding: 1px 5px 1px 5px;
+			color: #fff;
+			font-size: 3vh;
+			text-align: center;
+			text-transform: uppercase;
+		}
+
+		.name-score{
+			margin: 1vh 2vh 0 1vh;
+			font-size: 5vh;
+			height: 30%;
+		}
+
+		.btn{
+			margin-top: 1vh;
+			margin-left: auto;
+			margin-right: auto;
+			padding: 2px;
+			width: 70%;
+			height: 20%;
+			border-radius: 7px;
+			float: center;
+			font-size: 4vh;
+		}
+
+		.btn:hover{
+			opacity : 0.9;
+		}
+
+		.name-submit{
+			background-color: rgba(76,175,80,1);
+		}
+
+		.name-back{
+			background-color: rgba(244,67,54,1);
+		}
+
 }
 
 @media screen and (orientation:landscape) {
@@ -72,9 +195,27 @@
 		height: 36vw;
 		width: 36vw;
 		margin: auto;
-		padding-left: 6px;
-		padding-top: 3px;
-		padding-bottom: 3px;
+		padding-left: 5px;
+		padding-top: 2px;
+		padding-bottom: 2px;
+	}
+
+	#submit-score{
+		background-color: rgba(76,175,80,1);
+		border-radius: 7px;
+		width: 70%;
+		margin: auto;
+		padding: 6px;
+		font-size: 4.5vw;
+	}
+
+	#submit-score:hover{
+		background-color: rgba(76,175,80,0.9);
+	}
+
+	#replay{
+		margin: auto;
+		font-size: 4.5vw;
 	}
 	
 		#help{
@@ -83,13 +224,61 @@
 			top: 5px;
 			right: 5px;
 			height: 4vw;
-			width: 8vw;
+			width: 9vw;
 			padding: 10px;
 			border: 2px solid black;
 			border-radius: 5px;
 			background-color: rgba(139,195,74,1);
 			font-size: 3vw;	
 			font-family: 'Passion One', cursive, sans-serif;
+			z-index: 10;
+		}
+
+		#leaderboard{
+			position: fixed !important;
+			text-align: right;
+			bottom: 5px;
+			right: 5px;
+			height: 3vw;
+			width: 20vw;
+			padding: 8px;
+			border: 2px solid black;
+			border-radius: 5px;
+			background-color: rgba(139,195,74,1);
+			font-size: 3vw;	
+			font-family: 'Passion One', cursive, sans-serif;
+		}
+
+		#points-table{
+			text-align: center;
+			font-size: 2vw;
+			width: 100%;
+			border-collapse: collapse;
+		}
+		
+		#table-body > tr{
+			margin-bottom: 1vw; 
+			border-radius: 2px;
+		}
+
+		#table-header{
+			font-family: 'Aladin', cursive;
+			font-size: 2.7vw;
+		}
+
+		#table-body{
+			font-family: 'Secular One', sans-serif;
+			font-size: 2vw;
+		}
+
+		#player1{
+			font-size: 2.5vw;
+		}
+		#player2{
+			font-size: 2.3vw;
+		}
+		#player3{
+			font-size: 2.2vw;
 		}
 
 		#help-text{
@@ -115,16 +304,71 @@
 			font-size: 4vw;
 			font-family: 'Passion One', cursive, sans-serif;
 		}
+
+		
+	.avatar{
+		margin: 1.5vw auto 0 auto;
+		background-image: url('https://api.adoxrable.io/avatars/129/Kube.png');
+		border-radius: 100%;
+	}
+
+	.your-name{
+		margin: 1.5vw 2vw 0 1vw;
+		font-size: 3vw;
+		height: 4vw;
+	}
+
+	.name-input{
+		width: 100%;
+		height: 100%;
+		border-radius: 5px;
+		background-color: rgba(33,33,33 ,1);
+		border: 0px;
+		padding: 1px 5px 1px 5px;
+		color: #fff;
+		font-size: 3vw;
+		text-align: center;
+		text-transform: uppercase;
+	}
+
+	.name-score{
+		margin: 1vw 2vw 0 1vw;
+		font-size: 5vw;
+		height: 30%;
+	}
+
+	.btn{
+		margin-top: 1vw;
+		margin-left: auto;
+		margin-right: auto;
+		padding: 2px;
+		width: 70%;
+		height: 20%;
+		border-radius: 7px;
+		float: center;
+		font-size: 4vw;
+	}
+
+	.btn:hover{
+		opacity : 0.9;
+	}
+
+	.name-submit{
+		background-color: rgba(76,175,80,1);
+	}
+
+	.name-back{
+		background-color: rgba(244,67,54,1);
+	}
+
 }
 
-
-
-#SmallBox{
-	float: left;
+.SmallBox{
+	float: left !important;
 	border-radius: 3px;
-	margin-top: 3px;
-	margin-bottom: 3px;
-	margin-right: 6px;
+	margin-top: 2.5px;
+	margin-bottom: 2.5px;
+	margin-right: 4.5px;
 }
 
 
@@ -132,4 +376,11 @@
 #thebody{
 	background-color: white;
 	cursor: url(../img/cursor.cur), auto;
+}
+
+.thanks{
+	width: 100%;
+	height: 100%;
+	padding-top: 30%;
+	padding-bottom: auto;
 }
