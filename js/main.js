@@ -33,14 +33,9 @@ var seconds;
 var temp;
 var randomBox;
 var col;
+var box_no;
+var name;
 var opacy = 0.77;
-
-var factorial = function (number){
-	if (number ===0 || number === 1)
-		return 1;
-	return factorial(number-1)*number;
-};
-
 
 var index = 0;
 var help = false;
@@ -48,23 +43,33 @@ var help = false;
 var bigbox = document.getElementById("bigbox");
 var boxH = getComputedStyle(bigbox).getPropertyValue("height");
 
-var max_size = factorial(Math.max(...boxes));
+var bigBox;
+var gameOver = false;
+var submitting = false;
+var thanking = false;
+
 var bigBoxSize = boxH.slice(0,boxH.length - 2);
 
 function createSmallBox(total_extra_space, no_of_box){
+
+	var boxH = getComputedStyle(bigbox).getPropertyValue("height");
+
+	var bigBoxSize = boxH.slice(0,boxH.length - 2);
 	
 	var h = bigBoxSize - total_extra_space;
 
 	console.log(h);
 
-	h = h/no_of_box + "px";
-
+	H = h/no_of_box + "px";
+	h = h/no_of_box;
+	w = h + 0.04 * no_of_box + "px"
 	var SmallBox = document.createElement("div");
 
-	SmallBox.id = "SmallBox";
+	SmallBox.className = "SmallBox";
 	SmallBox.style.backgroundColor = col;
-	SmallBox.style.height = h;
-	SmallBox.style.width = h;	
+	SmallBox.style.height = H;
+	SmallBox.style.width = w;	
+	SmallBox.style.float = 'left';
 	bigbox.appendChild(SmallBox);
 }
 
@@ -74,9 +79,10 @@ function scoreUpdater () {
 	 ScoreDiv.innerHTML = "Score: " + score;
 }
 
-function randomBoxSelector() {
+function randomBoxSelector(known_no) {
 	 var allChilds = bigbox.childNodes;
-	 randomBox = allChilds[Math.floor((Math.random() * (boxes[index]*boxes[index])))];
+	 box_no = known_no || Math.floor((Math.random() * (boxes[index]*boxes[index])));
+	 randomBox = allChilds[box_no];
 	 randomBox.style.opacity = opacy;
 	 
 	 if(index % 2 == 0)
@@ -99,14 +105,64 @@ function randomBoxSelector() {
 function create(){
 	col = colrs[Math.floor((Math.random() * (colrs.length)))];
 	for(var i=0; i<boxes[index]*boxes[index]; i++){
-		var extra_spaces = 6 * boxes[index];
+		var extra_spaces = 5 * boxes[index];
 		createSmallBox(extra_spaces, boxes[index]);
 	}
 	randomBoxSelector();
 }
 
+function checkName () {
+	if (name != undefined && name != '' && name != 'undefined')
+		$('.name-input').val(name);
+}
+
+var submitScore = function () {
+	submitting = true;
+	$('#bigbox').html('');
+	var form = '<div class="form">';
+	form += '<img class="avatar" src="https://api.adorable.io/avatars/129/Kube.png">';
+	form += '<div class="your-name"><input class="name-input" type="text" placeholder="Your Name"/></div>';
+	form += '<div class="name-score">Score: ' + score +'</div>';
+	form += '<div class="name-submit btn">Submit</div>';
+	form += '<div class="name-back btn">Back</div>';
+
+	$('#bigbox').html(form);
+
+	checkName();
+
+	if ($('name-input').val() != "" && $('.name-input').val() != " "){
+		var url = "https://api.adorable.io/avatars/129/" + $('.name-input').val() + ".png";
+		$('.avatar').attr({'src': url});
+	}
+
+	var boxH = getComputedStyle(bigbox).getPropertyValue("height");
+
+	var bigBoxSize = boxH.slice(0,boxH.length - 2);
+
+	$('.avatar').css('width', '20%');
+	$('.avatar').css('height', 'auto');
+
+	$('.name-input').bind('keyup', function () {
+		var url = "https://api.adorable.io/avatars/129/" + $('.name-input').val() + ".png";
+		$('.avatar').attr({'src': url});
+	});
+
+	$('.name-submit').click(function () {
+		name = $('.name-input').val();
+		submit();
+		submitting = false;
+		thanking = true;
+		postSubmit();
+	});
+
+	$('.name-back').click(function () {
+		countdown(1);
+	});
+
+};
 
 function scoreplay () {
+	 var bigBoxSize = getComputedStyle(bigbox).getPropertyValue("height").slice(0,boxH.length - 2);
 	 bigbox.style.backgroundColor = "black";
 	 bigbox.style.fontSize = bigBoxSize * 0.13 + "px";
 	 bigbox.style.color = "white";
@@ -115,17 +171,21 @@ function scoreplay () {
 
 	 bigbox.innerHTML = "</br></br>Your Score: " + score;
 
-	 bigbox.innerHTML = bigbox.innerHTML + "</br></br> Tap to Replay";
+	 bigbox.innerHTML = bigbox.innerHTML + "</br><div id='submit-score'> Submit Score </div></br> <div id='replay'>Tap to Replay</div>";
 
-	 bigbox.onclick = function () {
+	 $('#submit-score').click( function () {
+	 	submitScore();
+	 });
+
+	 $('#replay').click( function () {
 	 	 location.reload();
-	 }
+	 });
 	 
 }
  
-function countdown() {
+function countdown(second) {
 	seconds = document.getElementById('countdown').innerHTML;
-	seconds = parseInt(seconds, 10);
+	seconds = second || parseInt(seconds, 10);
 
 	if (seconds == 1) {
 		temp = document.getElementById('countdown');
@@ -134,15 +194,23 @@ function countdown() {
 		randomBox.onclick = null;
 		scoreplay();
 		// window.alert("Your Score = " + score);
-		}
+	}
 
 	seconds--;
-	var tick = document.getElementById('tick');
-	tick.volume = (60 - seconds) / 60;
-	tick.play();
-	temp = document.getElementById('countdown');
-	temp.innerHTML = seconds;
-	timeoutMyOswego = setTimeout(countdown, 1000);
+    if (seconds === 0){
+        var game_over = document.getElementById("game_over");
+        gameOver = true;
+        game_over.play();
+    }
+    else{
+		var tick = document.getElementById('tick');
+		volume = Math.max((60 - seconds) / 60, 0.5);
+		tick.volume = (volume <= 1)? volume : 1;
+		tick.play();
+		temp = document.getElementById('countdown');
+		temp.innerHTML = seconds;
+		timeoutMyOswego = setTimeout(countdown, 1000);
+	}
 } 
 
 function start(){
@@ -165,7 +233,30 @@ window.onload = function () {
 
 
 window.onresize = function () {
-document.location.reload(true);
+	if (gameOver){
+		if (!submitting){
+			if(thanking){
+				postSubmit();
+			}
+			else{
+				countdown(1);
+			}
+		}
+		else{
+			submitScore();
+		}
+	}
+	else{
+		bigBox = document.getElementById('bigbox');
+		while(bigBox.firstChild){
+			bigBox.removeChild(bigBox.firstChild);
+		}
+		for(var i=0; i<boxes[index]*boxes[index]; i++){
+			var extra_spaces = 5 * boxes[index];
+			createSmallBox(extra_spaces, boxes[index]);
+		}
+		randomBoxSelector(box_no);
+	}
 };
 
 
@@ -205,3 +296,107 @@ $("#help").click(function () {
 		help = false;
 	}
 });
+
+var leaderboard;
+var displaying = false;
+var point_height = $("#leaderboard").height();
+var point_width = $("#leaderboard").width();
+
+function populatePoints () {
+	var frame = document.getElementById('leaderboard');
+	var table = document.createElement('table');
+	table.id = "points-table";
+	var tableHeaders = document.createElement('thead');
+	tableHeaders.id = "table-header";
+	var headers = '<tr><th></th><th>Player</th><th>Score</th></tr>';
+
+	tableHeaders.innerHTML += headers;
+	var tableBody = document.createElement('tbody');
+	tableBody.id = "table-body";
+	var bodyContent = '';
+	for (var i=1; i <= leaderboard.length; i++){
+		bodyContent += '<tr id="player' + i + '">';
+		bodyContent += '<td>' + i +'</td>';
+		bodyContent += '<td>' + leaderboard[i - 1]['name'] + '</td>';
+		bodyContent += '<td>' + leaderboard[i - 1]['score'] + '</td>';
+		bodyContent += '</tr>';
+	}
+	tableBody.innerHTML += bodyContent;
+	table.appendChild(tableHeaders);
+	table.appendChild(tableBody);
+
+	frame.appendChild(table);
+}
+
+function maintainConsistency () {
+	leaderboard = undefined;
+}
+
+$("#leaderboard").click(function () {
+	if (leaderboard == undefined){
+        setInterval(function () { maintainConsistency(); }, 10*60*1000);
+		$.ajax({
+            url: "http://kube-server.herokuapp.com/api/v1/score/",
+            type: "GET",
+            async: false,
+            crossDomain: true,
+            dataType: "json",
+            success: function (response) {
+            	console.log('calling api...');
+                leaderboard = response;
+				console.log(leaderboard);
+            },
+            error: function (xhr, status) {
+                alert("error");
+            }
+        });
+	}
+
+	if (!displaying){
+		var suffix = (window.innerHeight > window.innerWidth)? "vh": "vw";
+		$("#leaderboard").animate({
+			height: "40"+suffix,
+			width: "25"+suffix
+		}, 500);
+		populatePoints();
+		displaying = true;
+	}
+	else{
+		$("#points-table").remove();
+		$('#leaderboard').animate({
+			height: ""+point_height+"px",
+			width: ""+point_width+"px"
+		}, 500);
+		displaying = false;
+	}
+});
+
+// var submit  = function () {
+// 	if (name == '')
+// 		name = "Anonymous";
+// 	$.ajax({
+//             url: "http://kube-server.herokuapp.com/api/v1/score/",
+//             type: "POST",
+//             async: true,
+//             crossDomain: true,
+//             withCredentials: true,
+//             dataType: "json",
+//             data: {"name":name , "score": score},
+//             success: function (response) {
+//             	console.log('Score Submitted....');
+//             	console.log(response);
+//             },
+//             error: function (xhr, status) {
+//                 alert("Check your Internet Connection.");
+//             }
+//         });
+// };
+
+var postSubmit = function () {
+	$('#bigbox').html('');
+	var thanks = '<div class="thanks">Thank You <br /> <br/>Tap to Replay</div>';
+	$('#bigbox').html(thanks);
+	$('.thanks').click(function () {
+		location.reload();
+	});
+};
